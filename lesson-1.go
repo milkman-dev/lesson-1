@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
 
 func IsClabeValid(clabe string) bool {
 
-	multiplication := []int{3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7}
+	var multiplication []int = []int{3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7}
 
 	var clabeSum int
 	var modMinus10 int
@@ -20,24 +21,30 @@ func IsClabeValid(clabe string) bool {
 
 	}
 
-	for a := range clabe[:17] {
-		clabeNum := int(a)
+	for _, v := range clabe[:17] {
+		clabeNum, err := strconv.Atoi(string(v))
+		if err != nil {
+			fmt.Println("Fallo tu str to int")
+			return false
+		}
 		multNum = multiplication[indexMult]
-		fmt.Println("Multiplying", clabeNum, "*", multNum)
+		//fmt.Println("Multiplying", clabeNum, "*", multNum)
 		clabeMult := clabeNum * multNum
 		clabeSum += clabeMult
 		indexMult++
-		if indexMult > 17 {
-			break
-		}
 	}
 
 	mod10 := clabeSum % 10
-	// var clabePrefix bool = clabe[0:10] == storiPrefix
 
 	modMinus10 = (10 - mod10) % 10
 
-	return int(clabe[18]-'0') == modMinus10
+	finalDigit, err := strconv.Atoi(string(clabe[17]))
+	if err != nil {
+		return false
+	}
+
+	fmt.Println(finalDigit, "is not", modMinus10)
+	return int(finalDigit) == modMinus10
 
 }
 
