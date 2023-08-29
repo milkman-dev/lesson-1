@@ -11,7 +11,6 @@ func IsClabeValid(clabe string) bool {
 
 	var clabeSum int
 	var modMinus10 int
-	const storiPrefix string = "6461802244"
 	var indexMult int = 0
 	var multNum int
 
@@ -28,7 +27,6 @@ func IsClabeValid(clabe string) bool {
 			return false
 		}
 		multNum = multiplication[indexMult]
-		//fmt.Println("Multiplying", clabeNum, "*", multNum)
 		clabeMult := clabeNum * multNum
 		clabeSum += clabeMult
 		indexMult++
