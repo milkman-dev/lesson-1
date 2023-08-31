@@ -43,7 +43,6 @@ func IsClabeValid(clabe string) bool {
 		return false
 	}
 
-	fmt.Println(finalDigit, "is not", modMinus10)
 	return int(finalDigit) == modMinus10
 
 }
