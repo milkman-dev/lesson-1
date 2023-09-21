@@ -1,8 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"strconv"
+
+	"github.com/aws/aws-lambda-go/lambda"
 )
 
 func IsClabeValid(clabe string) bool {
@@ -11,7 +14,6 @@ func IsClabeValid(clabe string) bool {
 
 	var clabeSum int
 	var modMinus10 int
-	const storiPrefix string = "6461802244"
 	var indexMult int = 0
 	var multNum int
 
@@ -47,8 +49,27 @@ func IsClabeValid(clabe string) bool {
 
 }
 
+type (
+	validationRequest struct {
+		Clabe string `json:"clabe"`
+	}
+
+	validationResponse struct {
+		Valid bool `json:"valid"`
+	}
+)
+
+func HandleRequest(ctx context.Context, event validationRequest) (validationResponse, error) {
+	fmt.Printf("%v\n", event)
+	isValid := IsClabeValid(event.Clabe)
+	resp := validationResponse{
+		Valid: isValid,
+	}
+	return resp, nil
+}
+
 func main() {
-	fmt.Println(IsClabeValid("646180224445015833")) // true
-	fmt.Println(IsClabeValid("646180224445015837")) // false
-	fmt.Println(IsClabeValid("646"))                // false
+
+	lambda.Start(HandleRequest)
+
 }
