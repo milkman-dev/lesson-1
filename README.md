@@ -1,1 +1,1 @@
-Some exercises im making with my mentor to practice real life scenarios
+Some exercises im making to not lose practice
